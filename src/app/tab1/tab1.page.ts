@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RestauranteService } from '../servicios/restaurante.service';
 import { iRestaurante } from '../modelos/restaurantes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -11,7 +12,7 @@ export class Tab1Page {
 
   restaurantes : iRestaurante[];
 
-  constructor(private restaurantService : RestauranteService) {
+  constructor(private restaurantService : RestauranteService, private router : Router) {
     
   }
 
@@ -23,6 +24,12 @@ export class Tab1Page {
     this.restaurantService.findAll().subscribe( data => {
       this.restaurantes = data;
     })
+  }
+
+  goToDetails(restaurante : iRestaurante){
+    this.router.navigate(["/restaurante", restaurante.nombre]);
+    console.log(restaurante.cod_res);
+    
   }
 
 }
